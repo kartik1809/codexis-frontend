@@ -1,0 +1,93 @@
+body{
+    overflow: hidden;
+}
+.file-system{
+    width: 340px;
+    height: calc(100vh - 100px);
+    background-color: rgb(15, 14, 14);
+    padding-left:20px;
+}
+.file-system h2{
+    margin-top: 0;
+}
+.folder{
+    display: flex;
+    width: calc(100%-10px);
+    height: 25px;
+    justify-content: space-between;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.file-op-span{
+    margin-right: 15px;
+    width: 50px;
+    display: none;
+}
+
+.folder:hover .file-op-span{
+    display: block;
+}
+.folder-icon{
+    color: rgb(99, 247, 96);
+}
+.folder-line{
+    display: flex;
+}
+.folder-def{
+    display: flex;;
+}
+.input-container{
+    display: flex;
+}
+.explorer-head{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-left: 20px;
+    margin-left: -20px;
+    margin-bottom: 5px;
+    border-bottom: 2px solid rgb(70, 77, 76);
+}
+.new-project{
+    height: 45px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: rgb(70, 77, 76);
+    color: white;
+    margin-right: 15px;
+    
+}
+.file-name{
+    cursor: pointer;
+    display: block;
+}
+.file-name:hover{
+    color: rgb(224, 233, 224);
+}
+
+.get-code-down{
+    width: 340px;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.down-btn{
+    background-color: rgb(102, 185, 230);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.save-btn{
+    background-color: rgb(136, 122, 38);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
