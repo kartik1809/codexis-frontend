@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -35,6 +39,9 @@ button {
   color: #242424;
   cursor: pointer;
   transition: border-color 0.25s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 button:hover {
   border-color: #646cff;
@@ -77,4 +84,23 @@ span:hover {
 .language:focus {
   border-color: #007BFF;
   outline: none;
+}
+
+* {
+  scroll-behavior: smooth
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-n-8 text-n-1 text-base;
+  }
+}
+
+.codecore-logo{
+  width: 100px;
+  height: 80px;
+}
+
+.hero-app-name{
+  color: #b1980e;
 }

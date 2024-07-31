@@ -10,6 +10,7 @@
     border-left: 2px solid #f9f9f9;
     font-family: 'Inconsolata', monospace;
     padding-left: 5px;
+    overflow: hidden;
 }
 .outputToggler{
     position: absolute;
@@ -29,6 +30,8 @@
     right: 0;
 }
 .close-output{
+    /* display: none; */
+    height: 0;
     width: 0;
     border-left: none;
 }

@@ -7,7 +7,7 @@
     justify-content: center;
 
 }
-ul{
+.tabs-list{
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -19,14 +19,23 @@ ul{
     height: 100%;
     width: 100%;
 }
-/* 
-::-webkit-scrollbar{
-    width: 2px;
+
+::-webkit-scrollbar {
+    width: 10px; 
+    height: 1px;
+}
+::-webkit-scrollbar-track {
+    background:  #888; 
+    border-radius: 10px; 
+}
+::-webkit-scrollbar-thumb {
+    background:#0e3556; 
+    border-radius: 10px; 
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
 }
 
-::-webkit-scrollbar-track{
-    width: 2px;
-} */
 
 .li-tab{
     height: 100%;

@@ -7,7 +7,7 @@ import DashNav from '../components/DashComp/DashNav';
 const DashBoard = () => {
     const handle = useFullScreenHandle();
   return (
-    <div>      
+    <div className='dash-board'>      
       <FullScreen handle={handle}>
         <DashNav handle={handle}/>
         <ToolBar/>

@@ -1,5 +1,5 @@
-body{
-    overflow: hidden;
+.dash-board{
+    overflow: hidden !important;
 }
 .file-system{
     width: 340px;
@@ -7,8 +7,21 @@ body{
     background-color: rgb(15, 14, 14);
     padding-left:20px;
 }
-.file-system h2{
+.explorer-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    margin-left: -20px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid rgb(70, 77, 76);
+}
+.file-head{
     margin-top: 0;
+    font-size: 20px !important;
+    font-weight: 600;
 }
 .folder{
     display: flex;
@@ -41,15 +54,6 @@ body{
 }
 .input-container{
     display: flex;
-}
-.explorer-head{
-    display: flex;
-    justify-content: space-between;
-    padding-top: 10px;
-    padding-left: 20px;
-    margin-left: -20px;
-    margin-bottom: 5px;
-    border-bottom: 2px solid rgb(70, 77, 76);
 }
 .new-project{
     height: 45px;

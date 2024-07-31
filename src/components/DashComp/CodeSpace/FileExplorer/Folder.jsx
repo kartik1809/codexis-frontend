@@ -49,7 +49,7 @@ const Folder = ({ handleInsertNode,handleRenameNode,handleDeleteNode,explorer })
       "fileContent": "/* CSS code */"
     }
     const newTabs = { ...tabs };
-    newTabs.uid=obj;
+    newTabs.uiaaaaadad=obj;
     dispatch(setOpenTabs(newTabs));
   }
 

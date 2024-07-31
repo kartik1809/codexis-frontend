@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect,useRef } from 'react';
 import './Tabs.css';
 import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
@@ -22,10 +22,29 @@ const Tabs = () => {
     const code=tabs[tab].fileContent;
     dispatch(setContent(code));
   }
+  const scrollContainerRef = useRef(null);
+
+    useEffect(() => {
+        const scrollContainer = scrollContainerRef.current;
+
+        const handleWheel = (e) => {
+            e.preventDefault(); // Prevent default vertical scroll
+
+            if (e.deltaY !== 0) {
+                scrollContainer.scrollLeft += e.deltaY; // Scroll horizontally
+            }
+        };
+
+        scrollContainer.addEventListener('wheel', handleWheel);
+
+        return () => {
+            scrollContainer.removeEventListener('wheel', handleWheel);
+        };
+    }, []);
 
   return (
     <div className='tabs'>
-      <ul>
+      <ul className='tabs-list' ref={scrollContainerRef}>
         {Object.keys(tabs).map((tab) => (
           <li key={tab} className='tab li-tab' onClick={()=>{handle_tab_click(tab)}}>
             {tabs[tab].fileName}

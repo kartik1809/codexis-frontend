@@ -26,7 +26,7 @@ const FileExplorer = () => {
   return (
     <div className='file-system'>
       <div className='explorer-head'>
-        <h2>File Explorer</h2>
+        <h2 className='file-head'>File Explorer</h2>
         <button className='new-project'>New Project</button>
       </div>
       <Folder 
