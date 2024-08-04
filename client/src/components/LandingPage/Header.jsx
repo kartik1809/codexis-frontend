@@ -6,6 +6,8 @@ import Button from "./Button";
 import MenuSvg from "../../assets/svg/MenuSvg";
 import { HamburgerMenu } from "./design/Header";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import PrivateRoute from "../PrivateRoute";
 const Header = () => {
   const pathname = useLocation();
   const [openNavigation, setOpenNavigation] = useState(false);
@@ -45,9 +47,9 @@ const Header = () => {
         >
           <div className="relative z-2 flex flex-col items-center justify-center m-auto lg:flex-row">
             {navigation.map((item) => (
-              <a
+              <Link
                 key={item.id}
-                href={item.url}
+                to={item.url}
                 onClick={handleClick}
                 className={`block relative font-code text-2xl uppercase text-n-1 transition-colors hover:text-color-1 ${
                   item.onlyMobile ? "lg:hidden" : ""
@@ -58,27 +60,28 @@ const Header = () => {
                 } lg:leading-5 lg:hover:text-n-1 xl:px-12`}
               >
                 {item.title}
-              </a>
+              </Link>
             ))}
           </div>
 
           <HamburgerMenu />
         </nav>
 
-        <a
-          href="#signup"
+        <Link
+          to={"/register"}
           className="button hidden mr-8 text-n-1/50 transition-colors hover:text-n-1 lg:block"
         >
           New account
-        </a>
-        <Button className="hidden lg:flex" href="#login">
+        </Link>
+        <Link to={'/login'}>
+        <Button className="hidden lg:flex" href="/login">
           Sign in
-        </Button>
-
+        </Button></Link>
         <Button
-          className="ml-auto lg:hidden"
+          className="ml-auto lg:hidden bg-transparent"
           px="px-3"
           onClick={toggleNavigation}
+          
         >
           <MenuSvg openNavigation={openNavigation} />
         </Button>

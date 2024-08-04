@@ -14,7 +14,6 @@ const fileSlice = createSlice({
         branch.expanded = !branch.expanded;
       }
     },
-    // Add other reducers if necessary
   },
 });
 
