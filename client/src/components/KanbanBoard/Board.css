@@ -1,0 +1,21 @@
+/* For custom scrollbar */
+.app_board {
+    overflow: auto;
+  }
+  
+  .app_board::-webkit-scrollbar {
+    height: 12px;
+  }
+  
+  .app_board::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .app_board::-webkit-scrollbar-thumb {
+    background: #888; /* Color of the scrollbar thumb */
+  }
+  
+  .app_board::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color when hovering over scrollbar thumb */
+  }
+  

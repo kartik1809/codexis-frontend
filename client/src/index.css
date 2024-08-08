@@ -43,9 +43,9 @@ button {
   align-items: center;
   justify-content: center;
 }
-button:hover {
+/* button:hover {
   border-color: #646cff;
-}
+} */
 
 @media (prefers-color-scheme: light) {
   :root {

@@ -6,6 +6,7 @@ import Register from './pages/register/Register';
 import Login from './pages/login/Login';
 import PrivateRoute from './components/PrivateRoute';
 import Projects from './pages/Projects';
+import WebProject from './pages/WebPen/WebProject';
 // import './components/DashComp/DashNav.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/dashboard" element={<Dashboard/>} />
+        <Route path="/webproject" element={<WebProject/>} />
       </Routes>
     </Router>
   );

@@ -1,0 +1,11 @@
+
+@media screen and (min-width: 768px) {
+    .project-card{
+        height: 250px;
+    }
+}
+@media screen and (max-width: 900px) {
+    .recent-p-con{
+        flex-direction: column;
+    }
+}
