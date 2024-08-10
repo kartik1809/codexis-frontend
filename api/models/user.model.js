@@ -5,6 +5,10 @@ const userSchema =new mongoose.Schema({
         type:String,
         required:true
     },
+    uuid:{
+        type:String,
+        required:true
+    },
     last_name:{
         type:String
     },
@@ -21,6 +25,9 @@ const userSchema =new mongoose.Schema({
     password:{
         type:String,
         required:true
+    },
+    photoURL:{
+        type:String
     }
 },{timestamps:true})
 

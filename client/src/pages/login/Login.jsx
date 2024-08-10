@@ -34,7 +34,7 @@ const Login = () => {
             })
         })
         const data=await res.json();
-        navigate('/dashboard')
+        navigate('/projects')
     }
     catch(e){
         console.log(e)
@@ -58,7 +58,7 @@ const handleGithubClick= async ()=>{
             })
         })
         const data=await res.json();
-        navigate('/dashboard')
+        navigate('/projects')
     }
     catch(e){
         console.log(e)
@@ -88,7 +88,7 @@ const handleGithubClick= async ()=>{
       console.log(data)
       setLoading(false)
       
-      navigate('/dashboard')
+      navigate('/projects')
     }
     catch(err){
       console.log(err)

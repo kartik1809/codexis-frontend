@@ -2,6 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import authRoute from './routes/auth.route.js';
+import projectRoute from './routes/projects.route.js';
+import kanbanRoute from './routes/kanban.route.js';
 import cors from 'cors';
 dotenv.config();
 
@@ -24,7 +26,8 @@ app.get('/', (req, res) => {
 
 // Routes for the API
 app.use('/api/auth', authRoute);
-
+app.use('/api/projects',projectRoute)
+app.use('/api/kanban',kanbanRoute)
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

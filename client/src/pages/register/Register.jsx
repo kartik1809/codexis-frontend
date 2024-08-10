@@ -45,7 +45,7 @@ const Register = () => {
           })
           const data=await res.json();
           dispatch(loginSuccess(data))
-          navigate('/dashboard')
+          navigate('/projects')
       }
       catch(e){
           console.log(e)
@@ -70,7 +70,7 @@ const Register = () => {
           })
           const data=await res.json();
           console.log(data)
-          navigate('/dashboard')
+          navigate('/projects')
       }
       catch(e){
           console.log(e)

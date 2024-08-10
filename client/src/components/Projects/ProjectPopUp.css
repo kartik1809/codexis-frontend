@@ -1,0 +1,6 @@
+@media screen and (max-width:1000px) {
+    .new-project-pop-up{
+        width: 80vh !important;
+    }
+    
+}

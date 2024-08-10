@@ -1,0 +1,13 @@
+.kanban-board {
+    overflow: scroll;
+}
+
+.kanban-board::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+
+.kanban-board {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}

@@ -15,6 +15,9 @@ export default {
           5: "#858DFF",
           6: "#FF98E2",
           7: "#121212",
+          CustomNavbar: "#393948",
+          CustomBg: "#0E0D15",
+
         },
         stroke: {
           1: "#26242C",

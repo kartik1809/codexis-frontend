@@ -1,6 +1,21 @@
 import bcryptjs from 'bcryptjs';
 import User from '../models/user.model.js';
 import jwt from 'jsonwebtoken';
+import { v4 as uuidv4 } from 'uuid';
+import Project from '../models/project.model.js';
+import Kanban from '../models/kanban.model.js';
+
+const organiseData=async (user)=>{
+    const project ={uuid:user.uuid};
+    const kanban ={uuid:user.uuid};
+    try{
+        await new Project(project).save();
+        await new Kanban(kanban).save();
+    }
+    catch(err){
+        console.log("Hello");
+    }
+}
 
 export const register = async (req, res) => {
     const {first_name, last_name, username, email, password } = req.body;
@@ -10,10 +25,13 @@ export const register = async (req, res) => {
         last_name,
         username,
         email,
-        password:hashedPassword
+        password:hashedPassword,
+        photoURL:'https://avatars.githubusercontent.com/u/131158199?v=4',
+        uuid:uuidv4()
     });
     try{
         await newUser.save();
+        organiseData(newUser);
         res.status(201).json(newUser);
     }
     catch(err){
@@ -69,9 +87,12 @@ export const oauth = async (req, res) => {
                 last_name:name.split(' ')[1],
                 username,
                 email,
-                password:hashedPassword
+                password:hashedPassword,
+                photoURL:photoURL,
+                uuid:uuidv4()
             });
             await newUser.save();
+            organiseData(newUser);
             const added_user = await User.findOne({email});
             const {password:exportPassword, ...others} = added_user._doc;
             const token = jwt.sign({id:added_user._id}, process.env.SECRET_KEY, {expiresIn:'1d'});
