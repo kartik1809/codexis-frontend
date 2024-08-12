@@ -21,8 +21,8 @@ const Projects = () => {
   return (
     <div className='bg-color-CustomBg overflow-x-hidden'>
       <ProjectHeader user={user}  />
-      {projectPopUp && <ProjectPopUp setProjectPopUp={setProjectPopUp} name={'Folder'}/>}
-      {webProjectPopUp && <ProjectPopUp setProjectPopUp={setWebProjectPopUp} name={'Project'}/>}
+      {projectPopUp && <ProjectPopUp setProjectPopUp={setProjectPopUp} name={'Folder'} isWeb={false} />}
+      {webProjectPopUp && <ProjectPopUp setProjectPopUp={setWebProjectPopUp} name={'Project'} isWeb={true} />}
       <div className='flex items-center justify-between greet-section'>
         <h2 className='text-3xl p-10 font-semibold'>Hi,{user?user.first_name+" "+user.last_name:"user"}</h2>
         <span className='flex gap-2 mr-12 new-btn'>

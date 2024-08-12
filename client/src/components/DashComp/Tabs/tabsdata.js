@@ -1,9 +1,11 @@
-export const OpenTabs={
-    "tab1": {
+export const OpenTabs=[
+    {
+        "file_id": 1,
         "fileName": "index.html",
         "fileContent": "<html>\n<head>\n<title>Document</title>\n</head>\n<body>\n\n</body>\n</html>"
     },
-    "tab2": {
+    {
+        "file_id": 2,
         "fileName": "script.js",
         "fileContent": `
     // Initialize a value
@@ -26,8 +28,9 @@ export const OpenTabs={
     printAndIncrement(); // Prints the message and "Current count value: 3"
 `
     },
-    "tab3": {
+    {
+        "file_id": 3,
         "fileName": "style.css",
         "fileContent": "/* CSS code */"
     }
-}
+]

@@ -2,7 +2,7 @@ import bcryptjs from 'bcryptjs';
 import User from '../models/user.model.js';
 import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';
-import Project from '../models/project.model.js';
+import {Project} from '../models/project.model.js';
 import Kanban from '../models/kanban.model.js';
 
 const organiseData=async (user)=>{

@@ -1,57 +1,52 @@
-import React, { useState,useEffect,useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './Tabs.css';
 import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
-import { OpenTabs } from './Tabs/tabsdata';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { setContent } from '../../redux/EditorContentSlice';
 import { setOpenTabs } from '../../redux/tabsDataSlice';
 
 const Tabs = () => {
-  // const [tabs, setTabs] = useState(OpenTabs);
   const tabs = useSelector((state) => state.tabsData.OpenTabs);
   const dispatch = useDispatch();
-  const handleOnClick = (tab,event) => {
-    event.stopPropagation();
-    const newTabs = { ...tabs };
-    delete newTabs[tab];
-    dispatch(setOpenTabs(newTabs));
-  };
-  const handle_tab_click = (tab) => {
-    console.log('clicked');
-    const code=tabs[tab].fileContent;
-    dispatch(setContent(code));
-  }
   const scrollContainerRef = useRef(null);
 
-    useEffect(() => {
-        const scrollContainer = scrollContainerRef.current;
+  const handleOnClick = (fileId, event) => {
+    event.stopPropagation();
+    const newTabs = tabs.filter(tab => tab.file_id !== fileId);
+    dispatch(setOpenTabs(newTabs));
+  };
 
-        const handleWheel = (e) => {
-            e.preventDefault(); // Prevent default vertical scroll
+  const handleTabClick = (fileContent) => {
+    dispatch(setContent(fileContent));
+  };
 
-            if (e.deltaY !== 0) {
-                scrollContainer.scrollLeft += e.deltaY; // Scroll horizontally
-            }
-        };
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
 
-        scrollContainer.addEventListener('wheel', handleWheel);
+    const handleWheel = (e) => {
+      e.preventDefault();
+      if (e.deltaY !== 0) {
+        scrollContainer.scrollLeft += e.deltaY;
+      }
+    };
 
-        return () => {
-            scrollContainer.removeEventListener('wheel', handleWheel);
-        };
-    }, []);
+    scrollContainer.addEventListener('wheel', handleWheel);
+
+    return () => {
+      scrollContainer.removeEventListener('wheel', handleWheel);
+    };
+  }, []);
 
   return (
     <div className='tabs'>
       <ul className='tabs-list' ref={scrollContainerRef}>
-        {Object.keys(tabs).map((tab) => (
-          <li key={tab} className='tab li-tab' onClick={()=>{handle_tab_click(tab)}}>
-            {tabs[tab].fileName}
-            <CloseIcon className='closeIcon' onClick={(e) => handleOnClick(tab,e)} />
+        {tabs.map((tab) => (
+          <li key={tab.file_id} className='tab li-tab' onClick={() => handleTabClick(tab.fileContent)}>
+            {tab.fileName && tab.fileName.length > 10 ? tab.fileName.slice(0, 10) + '...' : tab.fileName}
+            <CloseIcon className='closeIcon' onClick={(e) => handleOnClick(tab.file_id, e)} />
           </li>
         ))}
-        <AddIcon className='addIcon' />
       </ul>
     </div>
   );

@@ -1,27 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Folder from './Folder';
-import useTraverseTree from '../../../../hooks/use-traverse-tree'; // Correct import statement
 import explorer from './FolderData';
+
 import './FileExplorer.css';
 
 const FileExplorer = () => {
   const [explorerData, setExplorerData] = useState(explorer);
-  const { insertNode, renameNode, deleteNode } = useTraverseTree();
+  const getExplorer = async (folder_id,uuid) => {
+    try{
+      const explorer = await fetch('http://127.0.0.1:3001/api/projects/getfolder',{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({folder_id,uuid})
+      });
+      const data=await explorer.json();
+      const fetchedData = data.items;
+      setExplorerData({
+        id: data.folder_id,
+        label: data.folder_name,
+        isFolder: true,
+        root: true,
+        items: fetchedData
+      });
+      console.log(data);
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
+  useEffect(  () => {
+      getExplorer("be904e84-a86d-4e30-b6e8-819fdcc74876","0222cb20-bac9-49b1-a52b-e2740a437692");
+  }, []);
 
-  const handleInsertNode = (folderId, item, isFolder) => {
-    const updatedTree = insertNode(explorerData, folderId, item, isFolder);
-    setExplorerData(updatedTree);
-  };
-
-  const handleRenameNode = (folderId, newName) => {
-    const updatedTree = renameNode(explorerData, folderId, newName);
-    setExplorerData(updatedTree);
-  };
-
-  const handleDeleteNode = (folderId) => {
-    const updatedTree = deleteNode(explorerData, folderId);
-    setExplorerData(updatedTree);
-  };
 
   return (
     <div className='file-system'>
@@ -30,10 +42,9 @@ const FileExplorer = () => {
         <button className='new-project'>New Project</button>
       </div>
       <Folder 
-        handleInsertNode={handleInsertNode} 
-        handleRenameNode={handleRenameNode}
-        handleDeleteNode={handleDeleteNode}
-        explorer={explorerData} 
+        explorer={explorerData}
+        getExplorer={getExplorer}
+        setExplorerData={setExplorerData}
       />
       <div className='get-code-down'>
         <button className='down-btn'>Download</button>

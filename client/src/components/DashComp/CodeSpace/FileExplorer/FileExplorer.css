@@ -64,6 +64,10 @@
     margin-right: 15px;
     
 }
+.context-menu{
+    position: absolute !important;
+    z-index: 1000 !important;
+}
 .file-name{
     cursor: pointer;
     display: block;

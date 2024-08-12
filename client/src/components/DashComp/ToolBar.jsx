@@ -10,20 +10,25 @@ import CodeIcon from '@mui/icons-material/Code';
 import SubtitlesIcon from '@mui/icons-material/Subtitles';
 import DescriptionIcon from '@mui/icons-material/Description';
 import LanguageIcon from '@mui/icons-material/Language';
-
+import {useNavigate} from 'react-router-dom';
 import './ToolBar.css';
 
 const ToolBar = () => {
   const codeLanguage = useSelector((state) => state.language.codeLanguage);
   const dispatch = useDispatch();
+  const navigate= useNavigate();
 
   const handleChange = (event) => {
     dispatch(setCodeLanguage(event.target.value));
   };
 
+  const handleHomeClick = () => {
+    navigate('/projects');
+  }
+
   return (
     <div className='tool-bar'>
-      <span className='home'><HomeIcon /><KeyboardArrowDownIcon /></span>
+      <span className='home' onClick={handleHomeClick}><HomeIcon /><KeyboardArrowDownIcon /></span>
       <div className='tools'>
         <span><BugReportIcon /> Debug</span>
         <span><DynamicFormIcon /> Optimize</span>
