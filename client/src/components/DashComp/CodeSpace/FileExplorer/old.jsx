@@ -10,10 +10,6 @@ import OpenInBrowserIcon from '@mui/icons-material/OpenInBrowser';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import CloseIcon from '@mui/icons-material/Close';
-import { setDeleteItem, setItems, setRenameItem } from '../../../../redux/Files/fileSlice';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons';
 
 
 const Folder = ({explorer,setExplorerData}) => {
@@ -37,6 +33,48 @@ const Folder = ({explorer,setExplorerData}) => {
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
+
+  const getExplorer = async (folder_id,uuid) => {
+    try{
+      const explorer = await fetch('http://127.0.0.1:3001/api/projects/getfolder',{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({folder_id,uuid})
+      });
+      const data=await explorer.json();
+      const fetchedData = data.items;
+      setExplorerData({
+        id: data.folder_id,
+        label: data.folder_name,
+        isFolder: true,
+        root: true,
+        items: fetchedData
+      });
+      console.log(data);
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
+
+  const updateItems = async (newItem) => {
+    try {
+      const res = fetch('http://127.0.0.1:3001/api/projects/createitem', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ folder_id: explorer.id, uuid: '0222cb20-bac9-49b1-a52b-e2740a437692', item: newItem })
+      });
+      const data = await res.json();
+      return data;
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
 
   const handleAddItem = async () => {
     if (inputValue.trim() === '') {
@@ -64,8 +102,10 @@ const Folder = ({explorer,setExplorerData}) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
+
       const data = await response.json();
-      dispatch(setItems({ id: explorer.id, newItem: data }));
+      explorer.items.push(data);
+      getExplorer(explorer.id,'0222cb20-bac9-49b1-a52b-e2740a437692');
       setInputValue('');
       setShowInput({ visible: false, isFolder: null });
       setExpand(true);
@@ -78,14 +118,14 @@ const Folder = ({explorer,setExplorerData}) => {
   const addInTabs = () => {
     let con = false;
     tabs.forEach((tab) => {
-      if (tab.id === explorer.id) {
+      if (tab.file_id === explorer.id) {
         con = true;
         return;
       }
     });
     if (con) return;
     const obj = {
-      id: explorer.id,
+      file_id: explorer.id,
       fileName: explorer.label,
       fileContent: "/* CSS code */"
     };
@@ -113,7 +153,7 @@ const Folder = ({explorer,setExplorerData}) => {
         body:JSON.stringify({item_id:target})
       });
       const data=await res.json();
-      dispatch(setDeleteItem({id:target}));
+      getExplorer(explorer.id,'0222cb20-bac9-49b1-a52b-e2740a437692');
       console.log(data);
     }
     catch(err){
@@ -133,7 +173,7 @@ const Folder = ({explorer,setExplorerData}) => {
           },
           body:JSON.stringify({item_id:explorer.id,new_name:newName})
         });
-        dispatch(setRenameItem({id:explorer.id,newName}));
+        getExplorer(explorer.id,'0222cb20-bac9-49b1-a52b-e2740a437692');
         setName('');
         setRenameVisible(false);
       }
@@ -168,7 +208,7 @@ const Folder = ({explorer,setExplorerData}) => {
         </div>
       }
       <ContextMenuTrigger id={explorer.id}>
-        <span className='file-name mt-2 ml-3' id={explorer.id} onClick={() => { addInTabs() }}>📄{explorer.label}</span>
+        <span className='file-name mt-1' id={explorer.id} onClick={() => { addInTabs() }}>📄{explorer.label}</span>
       </ContextMenuTrigger>
       <ContextMenu
         id={explorer.id}
@@ -196,7 +236,7 @@ const Folder = ({explorer,setExplorerData}) => {
   }
 
   return (
-    <div className={'mt-1'}>
+    <div className='mt-1'>
       {
         renameVisible &&
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
@@ -217,8 +257,7 @@ const Folder = ({explorer,setExplorerData}) => {
       }
       <ContextMenuTrigger id={explorer.id}>
         <div className='folder' id={explorer.id} onClick={() => setExpand(!expand)} >
-          
-          <span className='folder-line' id={explorer.id}><ArrowRightIcon/>{expand?<FontAwesomeIcon icon={faFolderOpen} style={{color: "#FFD43B",}} className='w-5 h-5 mr-2' />:<FolderIcon className='folder-icon mr-2' />}{explorer.label && explorer.label.length > 15 ? explorer.label.slice(0, 15) + '...' : explorer.label
+          <span className='folder-line' id={explorer.id}><FolderIcon className='folder-icon' />{explorer.label && explorer.label.length > 15 ? explorer.label.slice(0, 15) + '...' : explorer.label
 
           }</span>
           <span className='file-op-span'>
@@ -248,11 +287,11 @@ const Folder = ({explorer,setExplorerData}) => {
       }
       <div style={{ display: expand ? 'block' : 'none', paddingLeft: 25 }}>
         {showInput.visible && (
-          <div className='input-container mt-2'>
+          <div className='input-container'>
             <span className='folder-def'>{showInput.isFolder ? <FolderIcon /> : <InsertDriveFileIcon />}</span>
             <input
               type='text'
-              className='in-con-input pl-2 ml-1'
+              className='in-con-input'
               autoFocus
               value={inputValue}
               onChange={handleInputChange}
@@ -266,7 +305,7 @@ const Folder = ({explorer,setExplorerData}) => {
           </div>
         )}
         {explorer.items.map((item) => (
-          <Folder key={item.id} explorer={item} />
+          <Folder key={item.file_id} explorer={item} />
         ))}
       </div>
     </div>

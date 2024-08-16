@@ -1,11 +1,11 @@
 export const OpenTabs=[
     {
-        "file_id": 1,
+        "id": 1,
         "fileName": "index.html",
         "fileContent": "<html>\n<head>\n<title>Document</title>\n</head>\n<body>\n\n</body>\n</html>"
     },
     {
-        "file_id": 2,
+        "id": 2,
         "fileName": "script.js",
         "fileContent": `
     // Initialize a value
@@ -29,7 +29,7 @@ export const OpenTabs=[
 `
     },
     {
-        "file_id": 3,
+        "id": 3,
         "fileName": "style.css",
         "fileContent": "/* CSS code */"
     }

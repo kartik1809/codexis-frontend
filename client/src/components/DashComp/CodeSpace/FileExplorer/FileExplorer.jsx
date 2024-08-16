@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Folder from './Folder';
 import explorer from './FolderData';
-
+import { useSelector,useDispatch } from 'react-redux';
+import { setExplorerData } from '../../../../redux/Files/fileSlice';
 import './FileExplorer.css';
 
 const FileExplorer = () => {
-  const [explorerData, setExplorerData] = useState(explorer);
+  const dispatch=useDispatch();
+  const explorerData=useSelector(state=>state.files.explorerData);
   const getExplorer = async (folder_id,uuid) => {
     try{
       const explorer = await fetch('http://127.0.0.1:3001/api/projects/getfolder',{
@@ -17,14 +19,13 @@ const FileExplorer = () => {
       });
       const data=await explorer.json();
       const fetchedData = data.items;
-      setExplorerData({
+      dispatch(setExplorerData({
         id: data.folder_id,
         label: data.folder_name,
         isFolder: true,
         root: true,
         items: fetchedData
-      });
-      console.log(data);
+      }));
     }
     catch(err){
       console.log(err);
@@ -43,8 +44,6 @@ const FileExplorer = () => {
       </div>
       <Folder 
         explorer={explorerData}
-        getExplorer={getExplorer}
-        setExplorerData={setExplorerData}
       />
       <div className='get-code-down'>
         <button className='down-btn'>Download</button>

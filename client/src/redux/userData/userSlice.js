@@ -22,9 +22,12 @@ export const userSlice =createSlice({
             state.loading = false
             state.error = true
         },
+        setUser:(state,action)=>{
+            state.currentUser = action.payload
+        }
     }
 
 })
 
-export const {loginStart,loginSuccess,loginFailure} = userSlice.actions
+export const {loginStart,loginSuccess,loginFailure,setUser} = userSlice.actions
 export default userSlice.reducer

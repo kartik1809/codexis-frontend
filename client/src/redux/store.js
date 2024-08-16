@@ -1,27 +1,8 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import fileReducer from './Files/fileSlice';
-import languageReducer from './languageSlice';
-import EditorContentReducer from './EditorContentSlice';
-import tabsDataReducer from './tabsDataSlice';
-import userReducer from './userData/userSlice';
-import webPenReducer from './WebPenContent/WebPenSlice';
-import kanbanContentReducer from './KanbanBoard/kanbanContentSlice';
-import {
-  persistStore,
-  persistReducer,
-} from 'redux-persist';
+import { configureStore } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import {thunk} from 'redux-thunk';
-
-const rootReducer = combineReducers({
-  files: fileReducer,
-  language: languageReducer,
-  editorContent: EditorContentReducer,
-  tabsData: tabsDataReducer,
-  user: userReducer,
-  webPen: webPenReducer,
-  kanbanBoard: kanbanContentReducer,
-});
+import rootReducer from './rootReducer';
 
 const persistConfig = {
   key: 'root',

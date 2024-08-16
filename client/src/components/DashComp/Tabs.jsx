@@ -13,7 +13,8 @@ const Tabs = () => {
 
   const handleOnClick = (fileId, event) => {
     event.stopPropagation();
-    const newTabs = tabs.filter(tab => tab.file_id !== fileId);
+    console.log(tabs)
+    const newTabs = tabs.filter(tab => tab.id !== fileId);
     dispatch(setOpenTabs(newTabs));
   };
 
@@ -42,9 +43,9 @@ const Tabs = () => {
     <div className='tabs'>
       <ul className='tabs-list' ref={scrollContainerRef}>
         {tabs.map((tab) => (
-          <li key={tab.file_id} className='tab li-tab' onClick={() => handleTabClick(tab.fileContent)}>
+          <li key={tab.id} className='tab li-tab' onClick={() => handleTabClick(tab.fileContent)}>
             {tab.fileName && tab.fileName.length > 10 ? tab.fileName.slice(0, 10) + '...' : tab.fileName}
-            <CloseIcon className='closeIcon' onClick={(e) => handleOnClick(tab.file_id, e)} />
+            <CloseIcon className='closeIcon' onClick={(e) => handleOnClick(tab.id, e)} />
           </li>
         ))}
       </ul>
