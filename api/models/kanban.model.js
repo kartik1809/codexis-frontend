@@ -41,5 +41,6 @@ const kanbanSchema = new Schema({
 });
 
 const Kanban = mongoose.model('Kanban', kanbanSchema);
+export const Board=mongoose.model('Board',boardSchema);
 
 export default Kanban;

@@ -5,9 +5,15 @@ import { useSelector,useDispatch } from 'react-redux';
 import { setExplorerData } from '../../../../redux/Files/fileSlice';
 import './FileExplorer.css';
 
-const FileExplorer = () => {
+const FileExplorer = (props) => {
   const dispatch=useDispatch();
   const explorerData=useSelector(state=>state.files.explorerData);
+  const user=useSelector(state=>state.user.currentUser)
+  const uuid=user.uuid;
+  const folder_id=props.project.folder_id;
+  console.log(folder_id)
+  
+  console.log(uuid )
   const getExplorer = async (folder_id,uuid) => {
     try{
       const explorer = await fetch('http://127.0.0.1:3001/api/projects/getfolder',{
@@ -31,8 +37,8 @@ const FileExplorer = () => {
       console.log(err);
     }
   }
-  useEffect(  () => {
-      getExplorer("be904e84-a86d-4e30-b6e8-819fdcc74876","0222cb20-bac9-49b1-a52b-e2740a437692");
+  useEffect(() => {
+      getExplorer(folder_id,uuid);
   }, []);
 
 

@@ -2,7 +2,7 @@ import express from 'express';
 import { createProject,getAllProjects,newFolder,getFolder,createItem,getItem,renameItem,deleteItem} from '../controllers/project.controller.js';
 const router = express.Router();
 
-router.get('/allprojects',getAllProjects)
+router.post('/allprojects',getAllProjects)
 router.get('/projects/:id',)
 router.post('/createproject', createProject);
 router.post('/newfolder',newFolder)

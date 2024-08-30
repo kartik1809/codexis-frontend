@@ -4,7 +4,7 @@
         height: 250px;
     }
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1024px) {
     .recent-p-con{
         flex-direction: column;
     }

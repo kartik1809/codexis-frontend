@@ -7,18 +7,20 @@ import Login from './pages/login/Login';
 import PrivateRoute from './components/PrivateRoute';
 import Projects from './pages/Projects';
 import WebProject from './pages/WebPen/WebProject';
+import ProfilePage from './pages/Profile/ProfilePage';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/projects" element={<Projects />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
         {/* Protected Routes */}
+        <Route path="/profile" element={<ProfilePage />} />
         <Route element={<PrivateRoute />}>
+          
+          <Route path="/projects" element={<Projects />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/webproject" element={<WebProject />} />
         </Route>

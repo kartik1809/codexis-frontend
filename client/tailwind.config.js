@@ -1,9 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 import { fontFamily } from "tailwindcss/defaultTheme";
 import plugin from "tailwindcss/plugin";
+import flowbitePlugin from 'flowbite/plugin';
 
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}","./node_modules/flowbite/**/*.js"],
   theme: {
     extend: {
       colors: {
@@ -18,6 +19,9 @@ export default {
           CustomNavbar: "#393948",
           CustomBg: "#0E0D15",
 
+        },
+        backgroundImage: {
+          'custom-gradient': 'linear-gradient(to right, #2b1b2f, #175d4f, #2db58a)',
         },
         stroke: {
           1: "#26242C",
@@ -42,6 +46,10 @@ export default {
         sans: ["var(--font-sora)", ...fontFamily.sans],
         code: "var(--font-code)",
         grotesk: "var(--font-grotesk)",
+        bangers: ['Bangers', 'sans-serif'],
+        lobster: ['Lobster', 'sans-serif'],
+        pacifico: ['Pacifico', 'sans-serif'],
+        fredoka: ['Fredoka One', 'sans-serif'],
       },
       letterSpacing: {
         tagline: ".15em",
@@ -78,6 +86,7 @@ export default {
     },
   },
   plugins: [
+    flowbitePlugin,
     plugin(function ({ addBase, addComponents, addUtilities }) {
       addBase({});
       addComponents({

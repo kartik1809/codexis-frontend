@@ -35,18 +35,32 @@ const ProjectPopUp = (props) => {
                 body:JSON.stringify(project)
             });
             const data=await response.json();
-            navigate('/webproject')
+            navigate('/webproject',{state:data})
         }
         catch(err){
             console.log(err);
         }
     }
 
-    const createFolder = () => {
+    const createFolder = async () => {
         const folder={
             folder_name:Name,
             folder_description:Description,
             uuid:uuid
+        }
+        try{
+            const response=await fetch('http://127.0.0.1:3001/api/projects/newfolder',{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify(folder)
+            });
+            const data=await response.json();
+            navigate('/dashboard',{state:data})
+        }
+        catch(err){
+            console.log(err);
         }
 
     }

@@ -3,19 +3,37 @@ import User from '../models/user.model.js';
 import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';
 import {Project} from '../models/project.model.js';
-import Kanban from '../models/kanban.model.js';
+import Kanban,{Board} from '../models/kanban.model.js';
 
-const organiseData=async (user)=>{
-    const project ={uuid:user.uuid};
-    const kanban ={uuid:user.uuid};
-    try{
-        await new Project(project).save();
+const organiseData = async (user) => {
+    
+    const placeholderTask = {
+        id: 'placeholder-task',
+        title: 'Manage Your Tasks',
+        date: '2024-08-30' 
+    };
+
+   
+    const toDoBoard = { title: 'To do', tasks: [placeholderTask] };
+    const inProgressBoard = { title: 'In Progress', tasks: [] };
+    const completedBoard = { title: 'Completed', tasks: [] };
+
+   
+    const kanban = {
+        uuid: user.uuid,
+        kanbanBoards: [toDoBoard, inProgressBoard, completedBoard]
+    };
+
+    try {
+       
+        await new Project({ uuid: user.uuid }).save();
         await new Kanban(kanban).save();
+    } catch (err) {
+        console.error("Error organizing data:", err);
     }
-    catch(err){
-        console.log("Hello");
-    }
-}
+};
+
+
 
 export const register = async (req, res) => {
     const {first_name, last_name, username, email, password } = req.body;

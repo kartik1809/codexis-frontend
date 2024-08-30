@@ -11,7 +11,7 @@ const Board = () => {
   const uuid=user.currentUser?user.currentUser.uuid:'000f';
   const KanbanBoards = useSelector(state => state.kanbanBoard.kanbanBoards);
   const [activeCard, setActiveCard] = useState({ index: null, board: null });
-
+  console.log(KanbanBoards)
 
   const fetchKanban = async () => {
     try {

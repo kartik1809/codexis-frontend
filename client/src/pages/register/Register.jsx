@@ -28,6 +28,9 @@ const Register = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  const resetState = () => ({
+    type: 'RESET_STATE',
+  });
 
 
   const handleGoogleClick = async () => {

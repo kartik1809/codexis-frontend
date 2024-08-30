@@ -201,7 +201,7 @@ const Folder = ({explorer,setExplorerData}) => {
         renameVisible &&
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-gray-800 rounded-lg relative max-w-sm w-[100vw] h-100px p-2 pr-0 flex items-center">
-            <input type="text" placeholder='Enter new Name' className='h-10 rounded-lg p-2 w-[80%]' onChange={handleChange} onKeyDown={handleRenameDown} />
+            <input type="text" placeholder='Enter new Name' className='h-10 rounded-lg p-2 w-[80%]  bg-slate-300 text-black' onChange={handleChange} onKeyDown={handleRenameDown} />
             <button
               onClick={(e) =>{
                 e.stopPropagation();
@@ -252,7 +252,7 @@ const Folder = ({explorer,setExplorerData}) => {
             <span className='folder-def'>{showInput.isFolder ? <FolderIcon /> : <InsertDriveFileIcon />}</span>
             <input
               type='text'
-              className='in-con-input pl-2 ml-1'
+              className='in-con-input pl-2 ml-1 bg-slate-300 rounded-md p-1 text-black'
               autoFocus
               value={inputValue}
               onChange={handleInputChange}
@@ -265,7 +265,7 @@ const Folder = ({explorer,setExplorerData}) => {
             />
           </div>
         )}
-        {explorer.items.map((item) => (
+        {explorer && explorer.items && explorer.items.map((item) => (
           <Folder key={item.id} explorer={item} />
         ))}
       </div>

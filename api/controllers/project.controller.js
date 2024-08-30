@@ -31,7 +31,7 @@ export const getAllProjects = async (req, res) => {
     try {
         const user = await Project.findOne({ uuid });
         if (!user) return res.status(404).json({ message: 'User not found' });
-        res.status(200).json(user.webProjects);
+        res.status(200).json(user);
     } catch (error) {
         console.log(error);
     }
@@ -70,7 +70,7 @@ export const newFolder = async (req, res) => {
         if (!user) return res.status(404).json({ message: 'User not found' });
         user.folders.push(folder);
         await user.save();
-        res.status(201).json(user);
+        res.status(201).json(folder);
     } catch (error) {
         console.log(error);
     }
