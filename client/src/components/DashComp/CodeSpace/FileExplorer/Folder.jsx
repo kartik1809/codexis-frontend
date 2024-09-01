@@ -5,7 +5,6 @@ import FolderIcon from '@mui/icons-material/Folder';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpenTabs } from '../../../../redux/tabsDataSlice';
-import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import OpenInBrowserIcon from '@mui/icons-material/OpenInBrowser';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
@@ -167,31 +166,8 @@ const Folder = ({explorer,setExplorerData}) => {
           </div>
         </div>
       }
-      <ContextMenuTrigger id={explorer.id}>
+      
         <span className='file-name mt-2 ml-3' id={explorer.id} onClick={() => { addInTabs() }}>📄{explorer.label}</span>
-      </ContextMenuTrigger>
-      <ContextMenu
-        id={explorer.id}
-        className='context-menu absolute z-60 flex flex-col p-2 border-2 gap-2 rounded-[5px] bg-gray-800'
-      >
-        <MenuItem data={{ foo: 'bar' }} onClick={handleOpen} className='cursor-pointer'>
-          <OpenInBrowserIcon className='mr-2' />
-          Open in new Tab
-        </MenuItem>
-        <MenuItem data={{ foo: 'bar' }} onClick={handleDelete} className='cursor-pointer'>
-          <DeleteIcon className='mr-2' />
-          Delete File
-        </MenuItem>
-        <MenuItem data={{ foo: 'bar' }} onClick={handleRename} className='cursor-pointer'>
-          <DriveFileRenameOutlineIcon className='mr-2' />
-          Rename File
-        </MenuItem>
-        <MenuItem divider />
-        <MenuItem data={{ foo: 'bar' }} className='cursor-pointer border-t-2 pt-2 border-color-CustomNavbar'>
-          <CloseIcon className='mr-2' />
-          Close
-        </MenuItem>
-      </ContextMenu>
     </div>
   }
 
@@ -215,7 +191,7 @@ const Folder = ({explorer,setExplorerData}) => {
           </div>
         </div>
       }
-      <ContextMenuTrigger id={explorer.id}>
+      
         <div className='folder' id={explorer.id} onClick={() => setExpand(!expand)} >
           
           <span className='folder-line' id={explorer.id}><ArrowRightIcon/>{expand?<FontAwesomeIcon icon={faFolderOpen} style={{color: "#FFD43B",}} className='w-5 h-5 mr-2' />:<FolderIcon className='folder-icon mr-2' />}{explorer.label && explorer.label.length > 15 ? explorer.label.slice(0, 15) + '...' : explorer.label
@@ -227,25 +203,8 @@ const Folder = ({explorer,setExplorerData}) => {
           </span>
 
         </div>
-      </ContextMenuTrigger>
-      {
-        !explorer.root &&
-        <ContextMenu id={explorer.id} className='context-menu flex flex-col  p-2 border-2 gap-2 rounded-[5px] bg-gray-800 z'>
-        <MenuItem data={{ foo: 'bar' }} onClick={handleDelete} className='cursor-pointer'>
-          <DeleteIcon className='mr-2' />
-          Delete File
-        </MenuItem>
-        <MenuItem data={{ foo: 'bar' }} onClick={handleRename} className='cursor-pointer'>
-          <DriveFileRenameOutlineIcon className='mr-2' />
-          Rename File
-        </MenuItem>
-        <MenuItem divider />
-        <MenuItem data={{ foo: 'bar' }} className='cursor-pointer border-t-2 pt-2 border-color-CustomNavbar'>
-          <CloseIcon className='mr-2' />
-          Close
-        </MenuItem>
-      </ContextMenu>
-      }
+     
+      
       <div style={{ display: expand ? 'block' : 'none', paddingLeft: 25 }}>
         {showInput.visible && (
           <div className='input-container mt-2'>
