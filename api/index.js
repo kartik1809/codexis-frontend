@@ -12,9 +12,7 @@ const port = 3001;
 app.use(express.json());
 app.use(cors());
 
-// Log the MongoDB URI for debugging
-console.log('MongoDB URI:', process.env.MONGO_URI);
-console.log('Secret Key:', process.env.SECRET_KEY);
+
 // Connecting to the Database
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Database Connected'))
