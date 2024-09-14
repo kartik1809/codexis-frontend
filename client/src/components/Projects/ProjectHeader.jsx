@@ -11,7 +11,7 @@ const ProjectHeader = ({ user }) => {
   }
 
   return (
-    <div className='w-screen bg-gray-600  h-15 flex items-center px-4 justify-between'>
+    <div className='w-screen bg-gray-950 project-header relative  h-15 flex items-center px-4 justify-between'>
 
       <div className='flex relative z-4 items-center'>
         <img className='w-16 h-16' src="/logo.png" alt="" />

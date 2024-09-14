@@ -6,6 +6,13 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import { useSelector } from 'react-redux';
 import ProjectPopUp from '../components/Projects/ProjectPopUp';
 import { useNavigate } from 'react-router-dom';
+import DotPattern from '../components/magicui/dot-pattern';
+import ShinyButton from "../components/magicui/shiny-button";
+import ShineBorder from "../components/magicui/shine-border";
+import { cn } from "../lib/utils";
+import { CardWithForm } from '../components/UIComp/CreateCard';
+import TypingAnimation from '../components/magicui/typing-animation';
+
 const Projects = () => {
   const user = useSelector(state => state.user.currentUser)
   const [projectPopUp, setProjectPopUp] = useState(false)
@@ -55,18 +62,24 @@ const Projects = () => {
     else navigate('/dashboard', { state: item })
   }
 
+  const typingText = `Welcome to your dashboard ${user ? user.first_name : "User"}!`;
 
 
   return (
-    <div className='bg-gray-900 overflow-x-hidden'>
+    <div className='bg-gray-950 overflow-x-hidden'>
       <ProjectHeader user={user} />
       {projectPopUp && <ProjectPopUp setProjectPopUp={setProjectPopUp} name={'Folder'} isWeb={false} />}
       {webProjectPopUp && <ProjectPopUp setProjectPopUp={setWebProjectPopUp} name={'Project'} isWeb={true} />}
       <div className='flex items-center justify-between greet-section'>
-        <h2 className='text-3xl p-10 font-semibold font-fredoka'>Hi,{user ? user.first_name + " " + user.last_name : "user"}</h2>
+
+        <TypingAnimation
+          className="text-3xl p-10 font-semibold font-fredoka"
+          text={typingText}
+        />
+
         <span className='flex gap-2 mr-12 new-btn'>
-          <button className='w-36 h-12 bg-teal-500' onClick={StartNewFolder}>New Folder</button>
-          <button className='w-36 h-12 bg-teal-500' onClick={StartNewWebProject}>Web Project</button>
+          <span onClick={StartNewFolder}><ShinyButton text='New Folder' className='bg-white'></ShinyButton></span>
+          <span onClick={StartNewWebProject}><ShinyButton text='New Project' className='bg-white'></ShinyButton></span>
         </span>
       </div>
       <div className='p-10'>
@@ -80,23 +93,27 @@ const Projects = () => {
             allProjects.length == 0 ? null :
               allProjects.map((item, index) => {
                 if (index >= 3) return null;
-                return <aside onClick={() => { openProject(item) }} key={index} className="bg-custom-gradient h-full text-white p-6 border-2 border-color-6 rounded-lg flex flex-col justify-between w-full font-mono">
-                  <div className="flex justify-between items-center">
-                    <div className="flex space-x-2 text-red-500">
-                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                    </div>
-                    <p className="text-sm mod-date">Last Modified: {formatDateToDDMMYYYY(item.last_mod)}</p>
-                  </div>
-                  <div className="mt-4 flex flex-col gap-2">
-                    <p className="text-green-400 text-lg">{item.project_name || item.folder_name}</p>
-                    <p className="text-white">Description:</p>
-                    <p className="text-white">{(item.project_description && item.project_description.slice(0, 60)) || item.folder_description.slice(0, 60)} ...</p>
+                return <div key={index} onClick={() => { openProject(item) }}>
+                  <ShineBorder key={index}
+                    className="h-full  text-white p-2 px-4 cursor-pointer rounded-lg flex flex-col w-full font-mono relative border bg-background md:shadow-xl"
+                    color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
+                  >
+                    <div className="flex w-full justify-between items-center">
+                      <div className="flex space-x-2 w-full text-blue-500">
+                        <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+                        <div className="w-3 h-3 rounded-full bg-blue-300"></div>
+                        <div className="w-3 h-3 rounded-full bg-blue-700"></div>
+                      </div>
 
-                  </div>
-                  <div className="text-green-400 flex justify-end w-full cursor-pointer">OPEN<LaunchIcon></LaunchIcon></div>
-                </aside>
+                      <p className="text-sm mod-date">Last Modified: {formatDateToDDMMYYYY(item.last_mod)}</p>
+                    </div>
+                    <div className="mt-4 w-full flex flex-col gap-2">
+                      <p className="text-blue-500 text-lg">{item.project_name || item.folder_name}</p>
+                      <p className="text-white">Description:</p>
+                      <p className="text-white">{(item.project_description && item.project_description.slice(0, 60)) || item.folder_description.slice(0, 60)} ...</p>
+                    </div>
+                    <div className="text-blue-500 flex justify-end w-full cursor-pointer">OPEN<LaunchIcon></LaunchIcon></div>
+                  </ShineBorder></div>
               })
           }
         </div>
@@ -106,6 +123,19 @@ const Projects = () => {
 
       {/* kanban Board */}
       <Board />
+
+
+      <div className="absolute -top-[30rem] left-1/2 transform -translate-x-1/2 z-10 -translate-y-1/2 bg-white filter blur-[290px] opacity-50 w-[65vw] h-[40vw]">
+
+      </div>
+
+
+
+      <DotPattern
+        className={cn(
+          "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] ",
+        )}
+      />
     </div>
   )
 }

@@ -111,3 +111,7 @@ span:hover {
 .hero-app-name{
   color: #b1980e;
 }
+
+.project-header{
+  z-index: 10 !important;
+}
