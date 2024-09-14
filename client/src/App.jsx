@@ -8,6 +8,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Projects from './pages/Projects';
 import WebProject from './pages/WebPen/WebProject';
 import ProfilePage from './pages/Profile/ProfilePage';
+import PreLoader from './components/Preloader';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/webproject" element={<WebProject />} />
+          <Route path="/loading" element={<PreLoader/>} />
         </Route>
       </Routes>
     </Router>

@@ -1,19 +1,17 @@
 import React from 'react';
+import './Preloader.css';
 
 const Preloader = () => {
-    return (
-        <div className="flex absolute top-0 left-0 items-center justify-center h-full w-screen z-50 bg-gray-900">
-            <video 
-                src="https://cdn.dribbble.com/userupload/6392732/file/original-8ca764fca683a4291138609fc27fca0f.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="h-full w-full object-cover"
-                preload="auto"
-            />
-        </div>
-    );
+  return (
+    <div className='bg-gray-950 absolute flex items-center justify-center left-0 h-full w-full'>
+      <div className='flex flex-col gap-4'>
+        <img src="/logo.png" alt="Loading..." className='w-24 h-24 animate-spin' />
+        <h1 className='text-4xl font-bold font-bangers text-gray-200 text-center pulse-fade-animation'>
+          Codexis
+        </h1>
+      </div>
+    </div>
+  );
 };
 
 export default Preloader;

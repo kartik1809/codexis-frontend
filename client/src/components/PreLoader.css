@@ -1,0 +1,14 @@
+@keyframes pulseFade {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.5;
+    }
+  }
+  .pulse-fade-animation {
+    animation: pulseFade 1.5s infinite ease-in-out;
+  }
+  
