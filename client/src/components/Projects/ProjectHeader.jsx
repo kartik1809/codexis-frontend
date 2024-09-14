@@ -13,9 +13,9 @@ const ProjectHeader = ({ user }) => {
   return (
     <div className='w-screen bg-gray-950 project-header relative  h-15 flex items-center px-4 justify-between'>
 
-      <div className='flex relative z-4 items-center'>
-        <img className='w-16 h-16' src="/logo.png" alt="" />
-        <h1 className='text-2xl font-bold font-bangers text-gray-200'>CodeAbyss</h1>
+      <div className='flex relative z-4 pl-4 items-center'>
+        <img className='w-10 h-10' src="/logo.png" alt="" />
+        <h1 className='text-2xl font-bold font-bangers pl-2 text-gray-200'>Codexis</h1>
       </div>
       <div>
         <img src={user ? user.photoURL : "\\demo_pfp.png"} alt="ifhiew" className='w-10 h-10 mr-2 cursor-pointer rounded-full' onClick={toggle} />

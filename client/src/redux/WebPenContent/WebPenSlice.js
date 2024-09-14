@@ -1,9 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
-    html:"<!-- HTML content here -->",
-    css:"/* CSS content here */",
-    js:"// JavaScript content here",
+    html:"",
+    css:"",
+    js:"",
 }
 
 const WebPenSlice = createSlice({
