@@ -56,7 +56,7 @@ const EditTable = (props) => {
         <div>
             {!isClicked ? (
                 <span
-                    className='bg-slate-400 w-full flex p-2 rounded-lg mt-2 justify-center hover:text-white cursor-pointer'
+                    className='bg-slate-200 w-full flex p-2 rounded-lg mt-2 justify-center text-black cursor-pointer'
                     onClick={handleClick}
                 >
                     <AddIcon /> Add Card

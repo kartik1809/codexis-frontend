@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { deleteTaskFromBoard,updateBoard} from '../../../redux/KanbanBoard/kanbanContentSlice';
+import { deleteTaskFromBoard, updateBoard } from '../../../redux/KanbanBoard/kanbanContentSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import EditTask from '../EditTasks/EditTask';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import '@radix-ui/themes/styles.css';
+import { Badge, Flex } from '@radix-ui/themes';
 
 const Cards = (props) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -81,15 +83,17 @@ const Cards = (props) => {
       }
       return board;
     });
-    dispatch(updateBoard({ board: updatedKanbanBoards,uuid:uuid }));
+    dispatch(updateBoard({ board: updatedKanbanBoards, uuid: uuid }));
 
   }
+
+  const color=['orange','blue','green']
 
 
   return (
     <>
       <div
-        className="card flex flex-col gap-2 bg-slate-600 rounded-lg p-2 active:opacity-70 cursor-grab"
+        className="card flex flex-col gap-2 bg-gray-900 rounded-lg p-4 active:opacity-70 cursor-grab"
         onClick={handleCardClick}
         draggable
         onDragStart={() => {
@@ -105,11 +109,13 @@ const Cards = (props) => {
             <DeleteForeverIcon />
           </p>
         </div>
-        <div className="card_labels flex gap-2">
+
+        <Flex gap="4" className='w-full flex gap-4'>
           {props.labels.map((label, index) => (
-            <span key={index} className="label cursor-default bg-slate-500 rounded-lg p-1">{label}</span>
+            <Badge key={index} className='px-2 rounded-xl' color={color[index]}>{label}</Badge>
           ))}
-        </div>
+        </Flex>
+
         <div className="card_date flex justify-between">
           <p>{formattedDate}</p>
           <p className="status cursor-pointer" onClick={(e) => { handleDone(e) }}>{props.board != 2 ? <TaskAltIcon /> : ''}</p>

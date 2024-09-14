@@ -8,7 +8,7 @@ import EditTask from './EditTasks/EditTask';
 import './Boards.css';
 const Boards = (props) => {
   return (
-    <div className='w-[300px] h-fit flex-shrink-0 bg-slate-800 p-3 rounded-lg overflow-y-scroll kanban-board'>
+    <div className='w-[300px] h-fit flex-shrink-0 bg-gray-950 p-4 rounded-lg overflow-y-scroll kanban-board'>
       <div className="board_top flex gap-2 pr-1 pb-4 justify-between">
         <div className='flex gap-2'>
           <h4 className='font-semibold text-lg'>{props.title}</h4>
