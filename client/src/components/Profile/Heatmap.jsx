@@ -15,7 +15,7 @@ const HeatmapComp = () => {
     ];
 
     return (
-        <div className='bg-slate-500 rounded-lg h-48 p-4 overflow-hidden'>
+        <div className='glassmorphism rounded-lg h-48 p-4 overflow-hidden'>
             <h3 className='text-lg font-semibold'>User Activity Map</h3>
             <div className='heatmap-scroll-container overflow-x-auto'>
                 <HeatMap

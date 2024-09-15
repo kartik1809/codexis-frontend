@@ -1,5 +1,23 @@
-.heatmap{
-    overflow: scroll !important;
+.heatmap {
+  overflow: scroll !important;
 }
 
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.1); /* Transparent background */
+  backdrop-filter: blur(10px); /* Blurring the background */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
 
+.glassmorphism-button {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.glassmorphism-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}

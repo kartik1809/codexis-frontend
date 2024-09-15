@@ -167,7 +167,7 @@ const Folder = ({explorer,setExplorerData}) => {
         </div>
       }
       
-        <span className='file-name mt-2 ml-3' id={explorer.id} onClick={() => { addInTabs() }}>📄{explorer.label}</span>
+        <span className='file-name mt-2 ml-3 flex gap-1' id={explorer.id} onClick={() => { addInTabs() }}><img className='w-7 h-7 p-1' src='https://img.icons8.com/?size=100&id=77782&format=png&color=CDCEDC' alt='fIcon'/>{explorer.label}</span>
     </div>
   }
 
@@ -194,7 +194,7 @@ const Folder = ({explorer,setExplorerData}) => {
       
         <div className='folder' id={explorer.id} onClick={() => setExpand(!expand)} >
           
-          <span className='folder-line' id={explorer.id}><ArrowRightIcon/>{expand?<FontAwesomeIcon icon={faFolderOpen} style={{color: "#FFD43B",}} className='w-5 h-5 mr-2' />:<FolderIcon className='folder-icon mr-2' />}{explorer.label && explorer.label.length > 15 ? explorer.label.slice(0, 15) + '...' : explorer.label
+          <span className='folder-line flex items-center justify-center' id={explorer.id}><ArrowRightIcon/>{expand?<img className='w-[25px] h-[25px] p-1' src='https://img.icons8.com/?size=100&id=2939&format=png&color=CDCEDC' alt='fIcon'/>:<img className='w-7 h-7 p-1' src='https://img.icons8.com/?size=100&id=59786&format=png&color=CDCEDC' alt='fIcon'/>}{explorer.label && explorer.label.length > 15 ? explorer.label.slice(0, 15) + '...' : explorer.label
 
           }</span>
           <span className='file-op-span'>

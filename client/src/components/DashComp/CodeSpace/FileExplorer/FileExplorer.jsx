@@ -4,6 +4,7 @@ import explorer from './FolderData';
 import { useSelector,useDispatch } from 'react-redux';
 import { setExplorerData } from '../../../../redux/Files/fileSlice';
 import './FileExplorer.css';
+import { Button } from '../../../../components/ui/button';
 
 const FileExplorer = (props) => {
   const dispatch=useDispatch();
@@ -43,7 +44,7 @@ const FileExplorer = (props) => {
 
 
   return (
-    <div className='file-system'>
+    <div className='file-system bg-gray-950'>
       <div className='explorer-head'>
         <h2 className='file-head'>File Explorer</h2>
       </div>
@@ -51,8 +52,10 @@ const FileExplorer = (props) => {
         explorer={explorerData}
       />
       <div className='get-code-down'>
-        <button className='down-btn'>Download</button>
-        <button className='save-btn'>Save</button>
+        <Button className='bg-cyan-400'>Download</Button>
+        <Button className='bg-cyan-400'>Save</Button>
+        {/* <button className='down-btn'>Download</button>
+        <button className='save-btn'>Save</button> */}
       </div>
     </div>
   );
