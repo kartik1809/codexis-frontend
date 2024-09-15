@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import GoogleIcon from '@mui/icons-material/Google';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/userData/userSlice';
 import { persistor } from '../../redux/store';
 import { store } from '../../redux/store';
+import { setLoading } from '../../redux/LoaderSlice';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -22,6 +23,7 @@ const Login = () => {
   const resetState = () => ({
     type: 'RESET_STATE',
   });
+
 
 
   const handleGoogleClick = async () => {

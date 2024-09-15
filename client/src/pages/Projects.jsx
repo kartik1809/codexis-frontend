@@ -12,6 +12,8 @@ import ShineBorder from "../components/magicui/shine-border";
 import { cn } from "../lib/utils";
 import { CardWithForm } from '../components/UIComp/CreateCard';
 import TypingAnimation from '../components/magicui/typing-animation';
+import { useDispatch } from 'react-redux';
+import { setLoading } from '../redux/LoaderSlice';
 
 const Projects = () => {
   const user = useSelector(state => state.user.currentUser)
@@ -19,6 +21,7 @@ const Projects = () => {
   const [webProjectPopUp, setWebProjectPopUp] = useState(false)
   const [allProjects, setAllProjects] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const StartNewFolder = () => {
     setProjectPopUp(true)
   }
@@ -46,6 +49,10 @@ const Projects = () => {
 
   useEffect(() => {
     fetchProjects();
+    dispatch(setLoading(true));
+    setTimeout(() => {
+      dispatch(setLoading(false));
+    }, 800)
   }, [])
 
   function formatDateToDDMMYYYY(isoDateString) {

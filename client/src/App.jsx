@@ -9,10 +9,13 @@ import Projects from './pages/Projects';
 import WebProject from './pages/WebPen/WebProject';
 import ProfilePage from './pages/Profile/ProfilePage';
 import PreLoader from './components/Preloader';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const isLoading = useSelector((state) => state.loader.isLoading);
   return (
     <Router>
+      {isLoading && <PreLoader/>}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

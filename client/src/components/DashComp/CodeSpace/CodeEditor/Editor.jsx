@@ -28,7 +28,7 @@ const CodeEditor = () => {
         value={code}
         onChange={handleChange}
       />
-      <Output edref={editorRef} lang={codeLanguage} />
+      {/* <Output edref={editorRef} lang={codeLanguage} /> */}
     </div>
   );
 };

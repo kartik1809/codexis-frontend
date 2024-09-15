@@ -7,6 +7,7 @@ import tabsDataReducer from './tabsDataSlice';
 import userReducer from './userData/userSlice';
 import webPenReducer from './WebPenContent/WebPenSlice';
 import kanbanContentReducer from './KanbanBoard/kanbanContentSlice';
+import loaderReducer from './LoaderSlice';
 
 const appReducer = combineReducers({
   files: fileReducer,
@@ -16,6 +17,7 @@ const appReducer = combineReducers({
   user: userReducer,
   webPen: webPenReducer,
   kanbanBoard: kanbanContentReducer,
+  loader: loaderReducer,
 });
 
 

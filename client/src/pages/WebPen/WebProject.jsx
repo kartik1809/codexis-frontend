@@ -8,6 +8,7 @@ import WebHeader from '../../components/WebPen/WebHeader';
 import './SplitReact.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setHtml, setCss, setJs } from '../../redux/WebPenContent/WebPenSlice';
+import { setLoading } from '../../redux/LoaderSlice';
 
 const WebProject = () => {
   const html = useSelector((state) => state.webPen.html);
@@ -17,11 +18,13 @@ const WebProject = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-
+    dispatch(setLoading(true));
     if (html !== '' && css !== '' && js !== '') {
+      setTimeout(() => {
+        dispatch(setLoading(false));
+      }, 800)
       return;
     }
-
     const initHTML = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -155,11 +158,13 @@ body.dark-mode textarea {
     document.body.classList.toggle('dark-mode');
 });
 `
-
-
     dispatch(setHtml(initHTML));
     dispatch(setCss(initCSS));
     dispatch(setJs(initJS));
+    
+    setTimeout(() => {
+      dispatch(setLoading(false));
+    }, 800)
   }, []);
 
   const tabsData = {
@@ -177,7 +182,7 @@ body.dark-mode textarea {
     },
   };
 
- 
+
 
 
   const handleClick = (key) => {

@@ -40,7 +40,7 @@ const Tabs = () => {
   }, []);
 
   return (
-    <div className='tabs'>
+    <div className='tabs bg-gray-950'>
       <ul className='tabs-list' ref={scrollContainerRef}>
         {tabs.map((tab) => (
           <li key={tab.id} className='tab li-tab' onClick={() => handleTabClick(tab.fileContent)}>

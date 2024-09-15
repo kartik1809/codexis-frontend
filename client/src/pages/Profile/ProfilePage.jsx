@@ -10,6 +10,8 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import HeatmapComp from '../../components/Profile/Heatmap';
 import Badges from '../../components/Profile/Badges';
 import Preloader from '../../components/Preloader';
+import { useDispatch } from 'react-redux';
+import { setLoading } from '../../redux/LoaderSlice';
 
 
 const ProfilePage = () => {
@@ -21,6 +23,7 @@ const ProfilePage = () => {
   const options = { day: 'numeric', month: 'long', year: 'numeric' };
   const formattedDate = date.toLocaleDateString('en-GB', options);
   const [isPreLoader,setPreLoader]=useState(false);
+  const dispatch=useDispatch();
 
   const fetchProjects = async () => {
     const { uuid } = user.currentUser;
@@ -42,15 +45,12 @@ const ProfilePage = () => {
     setAllProjects(projects)
     console.log(projects)
   }
-
   useEffect(() => {
-    setPreLoader(true);
-    setTimeout(()=>{
-      fetchProjects();
-      setPreLoader(false);
-    },800)
-    
-  }, [])
+    dispatch(setLoading(true));
+    setTimeout(() => {
+      dispatch(setLoading(false));
+    }, 800)
+  },[])
 
 
   return (

@@ -3,6 +3,7 @@ import Tabs from './Tabs'
 import './DashNav.css'
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { NotificationCard } from './Tabs/Notification';
 
 const DashNav = (props) => {
   const [isFullScreen, setisFullScreen] = useState(false)
@@ -17,12 +18,12 @@ const DashNav = (props) => {
   }
   
   return (
-    <div className='navBar'>
-        <button onClick={handleFullScreen} className='full-screen-btn'>{isFullScreen?'Exit':'Full Screen'}</button>
-        <span className='logo-con'><img src="../public/logo.png" alt="" className='logo'/></span>
+    <div className='navBar bg-gray-950'>
+        <button onClick={handleFullScreen} className='full-screen-btn bg-cyan-400 hover:bg-cyan-500 shadow-cyan-500/50 text-gray-700'>{isFullScreen?'Exit':'Full Screen'}</button>
+        <span className='p-2 h-12 w-14'><img src="../public/logo.png" alt="" className=' w-12 h-10'/></span>
         <Tabs/>
-        <button className='invite'>Invite</button>
-        <span className='notifications'><NotificationsIcon/><KeyboardArrowDownIcon/></span>
+        <button className='invite bg-cyan-400 hover:bg-cyan-500 shadow-cyan-500/50 text-gray-700'>Invite</button>
+        <NotificationCard/>
         <img src="../public/demo_pfp.png" alt="pfp"/>
     </div>
   )

@@ -36,10 +36,7 @@
     display: flex;
     align-items: center;
     margin-left: auto;
-    background-color: rgb(51, 50, 49);
+    border: none !important;
     margin-right: 60px;
-    border: 2px solid rgb(85, 83, 83);
-    border-radius: 8px;
-    padding: 4px 8px;
     cursor: pointer;
 }

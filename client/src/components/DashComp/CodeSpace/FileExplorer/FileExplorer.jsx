@@ -46,7 +46,6 @@ const FileExplorer = (props) => {
     <div className='file-system'>
       <div className='explorer-head'>
         <h2 className='file-head'>File Explorer</h2>
-        <button className='new-project'>New Project</button>
       </div>
       <Folder 
         explorer={explorerData}
