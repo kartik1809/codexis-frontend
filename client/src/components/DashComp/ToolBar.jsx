@@ -15,6 +15,10 @@ import { useNavigate } from 'react-router-dom';
 import './ToolBar.css';
 import { ComboboxDemo } from './Tabs/LangSelect';
 import { TerminalDrawer } from './Terminal';
+import GenerateDialog from './ToolBar/GenerateDialog';
+import OptimizeDialog from './ToolBar/OptimizeDialog';
+import { Translate } from '@mui/icons-material';
+import TranslateDialog from './ToolBar/TranslateDialog';
 
 const ToolBar = () => {
   const codeLanguage = useSelector((state) => state.language.codeLanguage);
@@ -33,11 +37,10 @@ const ToolBar = () => {
     <div className='tool-bar bg-gray-950'>
       <span className='home bg-gray-950' onClick={handleHomeClick}><HomeIcon /><KeyboardArrowDownIcon /></span>
       <div className='tools'>
-        <span><BugReportIcon /> Debug</span>
-        <span><DynamicFormIcon /> Optimize</span>
-        <span><SubtitlesIcon /> Translate</span>
+        <OptimizeDialog/>
+        <TranslateDialog/> 
         <span><DescriptionIcon /> Documentation</span>
-        <span><CodeIcon /> Generate</span>
+        <GenerateDialog/>
       </div>
       <div className='language border-none'>
         <TerminalDrawer/>

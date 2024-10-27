@@ -5,17 +5,17 @@ import FolderIcon from '@mui/icons-material/Folder';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpenTabs } from '../../../../redux/tabsDataSlice';
-import OpenInBrowserIcon from '@mui/icons-material/OpenInBrowser';
-import DeleteIcon from '@mui/icons-material/Delete';
-import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
-import CloseIcon from '@mui/icons-material/Close';
 import { setDeleteItem, setItems, setRenameItem } from '../../../../redux/Files/fileSlice';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons';
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+  ContextMenuSeparator
+} from "../../../ui/context-menu";
 
-
-const Folder = ({explorer,setExplorerData}) => {
+const Folder = ({ explorer, setExplorerData }) => {
   const dispatch = useDispatch();
   const tabs = useSelector((state) => state.tabsData.OpenTabs);
   const [expand, setExpand] = useState(false);
@@ -25,7 +25,7 @@ const Folder = ({explorer,setExplorerData}) => {
     isFolder: null,
   });
   const [inputValue, setInputValue] = useState('');
-  const [name,setName]=useState('');
+  const [name, setName] = useState('');
 
   const handleNewFolder = (e, isFolder) => {
     e.stopPropagation();
@@ -73,7 +73,6 @@ const Folder = ({explorer,setExplorerData}) => {
     }
   };
 
-
   const addInTabs = () => {
     let con = false;
     tabs.forEach((tab) => {
@@ -86,149 +85,215 @@ const Folder = ({explorer,setExplorerData}) => {
     const obj = {
       id: explorer.id,
       fileName: explorer.label,
-      fileContent: "/* CSS code */"
+      fileContent: "/* CSS code */" // Customize this as needed.
     };
     const newTabs = [...tabs, obj];
     dispatch(setOpenTabs(newTabs));
   };
 
-  const handleOpen = (e, data) => {
-    e.stopPropagation();
+  const handleOpen = () => {
     addInTabs();
   };
-  const handleRename = (e, data) => {
+
+  const handleRename = (e) => {
     e.stopPropagation();
     setRenameVisible(true);
   };
-  const handleDelete =async (e, data) => {
+
+  const handleDelete = async (e) => {
     e.stopPropagation();
-    const target=data.target.id;
-    try{
-      const res=await fetch('http://127.0.0.1:3001/api/projects/deleteitem',{
-        method:'POST',
-        headers:{
-          'Content-Type':'application/json'
+    try {
+      const res = await fetch('http://127.0.0.1:3001/api/projects/deleteitem', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
         },
-        body:JSON.stringify({item_id:target})
+        body: JSON.stringify({ item_id: explorer.id })
       });
-      const data=await res.json();
-      dispatch(setDeleteItem({id:target}));
-      console.log(data);
-    }
-    catch(err){
-      console.log(err)
+      const result = await res.json();
+      dispatch(setDeleteItem({ id: explorer.id }));
+      console.log(result);
+    } catch (err) {
+      console.log(err);
     }
   };
 
-  const handleRenameDown =async (e) => {
+  const handleRenameDown = async (e) => {
     if (e.key === 'Enter') {
       const newName = name;
-      console.log(newName);
-      try{
-        const res=await fetch('http://127.0.0.1:3001/api/projects/renameitem',{
-          method:'POST',
-          headers:{
-            'Content-Type':'application/json'
+      try {
+        const res = await fetch('http://127.0.0.1:3001/api/projects/renameitem', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
           },
-          body:JSON.stringify({item_id:explorer.id,new_name:newName})
+          body: JSON.stringify({ item_id: explorer.id, new_name: newName })
         });
-        dispatch(setRenameItem({id:explorer.id,newName}));
+        dispatch(setRenameItem({ id: explorer.id, newName }));
         setName('');
         setRenameVisible(false);
-      }
-      catch(err){
+      } catch (err) {
         console.log(err);
       }
     }
   };
+  const handleRenameSubmit = async (e) => {
+    const newName = name;
+    try {
+      const res = await fetch('http://127.0.0.1:3001/api/projects/renameitem', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ item_id: explorer.id, new_name: newName })
+      });
+      dispatch(setRenameItem({ id: explorer.id, newName }));
+      setName('');
+      setRenameVisible(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleChange = (e) => {
     setName(e.target.value);
-    console.log(name);
+  };
+
+  const handleFolderRename = (e) => {
+    console.log('rename');
+    e.stopPropagation();
+    setRenameVisible(true);
   };
 
   if (!explorer.isFolder) {
-    return <div>
-      {
-        renameVisible &&
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-gray-800 rounded-lg relative max-w-sm w-[100vw] h-100px p-2 pr-0 flex items-center">
-            <input type="text" placeholder='Enter new Name' className='h-10 rounded-lg p-2 w-[80%]' onChange={handleChange} onKeyDown={handleRenameDown} />
-            <button
-              onClick={(e) =>{
-                e.stopPropagation();
-                setRenameVisible(false);
-              }}
-              className="text-3xl h-10 w-[20%] bg-transparent text-gray-500 hover:text-gray-700"
+    return (
+      <ContextMenu>
+        <ContextMenuTrigger>
+          <div>
+            {renameVisible && (
+              <div className="fixed inset-0 bg-zinc-950 bg-opacity-90 flex justify-center items-center z-50">
+                <div className="bg-gray-900 rounded-2xl shadow-2xl relative max-w-lg w-[90vw] h-auto p-6 flex flex-col items-center space-y-4">
+                  <h2 className="text-2xl font-bold text-white mb-2">Rename Your Item</h2>
+                  <input
+                    type="text"
+                    placeholder="Enter new Name"
+                    className="h-12 rounded-lg bg-gray-800 text-white p-4 w-full outline-none border-2 border-transparent focus:border-blue-500 transition-all"
+                    onChange={handleChange}
+                    onKeyDown={handleRenameDown}
+                  />
+                  <div className="flex space-x-4">
+                    <button
+                      onClick={() => setRenameVisible(false)}
+                      className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-all"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={(e) => handleRenameSubmit(e)}
+                      className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+            <span
+              className="file-name mt-2 ml-3 flex gap-1"
+              id={explorer.id}
+              onClick={addInTabs}
             >
-              &times;
-            </button>
-
+              <InsertDriveFileIcon className="file-icon" />
+              {explorer.label}
+            </span>
           </div>
-        </div>
-      }
-      
-        <span className='file-name mt-2 ml-3 flex gap-1' id={explorer.id} onClick={() => { addInTabs() }}><img className='w-7 h-7 p-1' src='https://img.icons8.com/?size=100&id=77782&format=png&color=CDCEDC' alt='fIcon'/>{explorer.label}</span>
-    </div>
+        </ContextMenuTrigger>
+
+        <ContextMenuContent>
+          <ContextMenuItem onSelect={handleOpen}>Open</ContextMenuItem>
+          <ContextMenuItem onSelect={handleRename}>Rename&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⌘ E</ContextMenuItem>
+          <ContextMenuSeparator />
+          <ContextMenuItem onSelect={handleDelete} className='hover:bg-red-700'>Delete &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⌘ D</ContextMenuItem>
+        </ContextMenuContent>
+      </ContextMenu>
+    );
   }
 
   return (
-    <div className={'mt-1'}>
-      {
-        renameVisible &&
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-gray-800 rounded-lg relative max-w-sm w-[100vw] h-100px p-2 pr-0 flex items-center">
-            <input type="text" placeholder='Enter new Name' className='h-10 rounded-lg p-2 w-[80%]  bg-slate-300 text-black' onChange={handleChange} onKeyDown={handleRenameDown} />
-            <button
-              onClick={(e) =>{
-                e.stopPropagation();
-                setRenameVisible(false);
-              }}
-              className="text-3xl h-10 w-[20%] bg-transparent text-gray-500 hover:text-gray-700"
-            >
-              &times;
-            </button>
-
+    <ContextMenu>
+      <ContextMenuTrigger>
+        {renameVisible && (
+          <div className="fixed inset-0 bg-zinc-950 bg-opacity-90 flex justify-center items-center z-50">
+            <div className="bg-gray-900 rounded-2xl shadow-2xl relative max-w-lg w-[90vw] h-auto p-6 flex flex-col items-center space-y-4">
+              <h2 className="text-2xl font-bold text-white mb-2">Rename Your Item</h2>
+              <input
+                type="text"
+                placeholder="Enter new Name"
+                className="h-12 rounded-lg bg-gray-800 text-white p-4 w-full outline-none border-2 border-transparent focus:border-blue-500 transition-all"
+                onChange={handleChange}
+                onKeyDown={handleRenameDown}
+              />
+              <div className="flex space-x-4">
+                <button
+                  onClick={() => setRenameVisible(false)}
+                  className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-all"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={(e) => handleRenameSubmit(e)}
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all"
+                >
+                  Save
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      }
-      
-        <div className='folder' id={explorer.id} onClick={() => setExpand(!expand)} >
-          
-          <span className='folder-line flex items-center justify-center' id={explorer.id}><ArrowRightIcon/>{expand?<img className='w-[25px] h-[25px] p-1' src='https://img.icons8.com/?size=100&id=2939&format=png&color=CDCEDC' alt='fIcon'/>:<img className='w-7 h-7 p-1' src='https://img.icons8.com/?size=100&id=59786&format=png&color=CDCEDC' alt='fIcon'/>}{explorer.label && explorer.label.length > 15 ? explorer.label.slice(0, 15) + '...' : explorer.label
 
-          }</span>
-          <span className='file-op-span'>
-            <CreateNewFolderIcon className='file-op' onClick={(e) => handleNewFolder(e, true)} />
-            <NoteAddIcon className='file-op' onClick={(e) => handleNewFolder(e, false)} />
+        )}
+        <div className="folder flex mt-1  items-center" id={explorer.id} onClick={() => setExpand(!expand)}>
+          <span className="folder-line flex items-center justify-center" id={explorer.id}>
+            <ArrowRightIcon />
+            {expand ? <FolderIcon /> : <FolderIcon />}
+            {explorer.label.length > 15 ? explorer.label.slice(0, 15) + '...' : explorer.label}
           </span>
-
+          <span className="file-op-span">
+            <CreateNewFolderIcon className="file-op" onClick={(e) => handleNewFolder(e, true)} />
+            <NoteAddIcon className="file-op" onClick={(e) => handleNewFolder(e, false)} />
+          </span>
         </div>
-     
-      
+      </ContextMenuTrigger>
+
+      {!explorer.root && <ContextMenuContent>
+        <ContextMenuItem onSelect={(e) => { handleFolderRename(e) }} >Rename</ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenuItem onSelect={handleDelete}>Delete</ContextMenuItem>
+      </ContextMenuContent>}
+
       <div style={{ display: expand ? 'block' : 'none', paddingLeft: 25 }}>
         {showInput.visible && (
-          <div className='input-container mt-2'>
-            <span className='folder-def'>{showInput.isFolder ? <FolderIcon /> : <InsertDriveFileIcon />}</span>
-            <input
-              type='text'
-              className='in-con-input pl-2 ml-1 bg-slate-300 rounded-md p-1 text-black'
-              autoFocus
-              value={inputValue}
-              onChange={handleInputChange}
-              onBlur={handleAddItem}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  handleAddItem();
-                }
-              }}
-            />
-          </div>
+          <div className="input-container mt-1 flex items-center space-x-2">
+          <span className="text-gray-400">{showInput.isFolder ? <FolderIcon className="text-blue-500"/> : <InsertDriveFileIcon className="text-green-500"/>}</span>
+          <input
+            type="text"
+            className="bg-gray-800 text-white w-[250px] rounded-lg p-1 pl-4 pr-12 outline-none shadow-md focus:ring-1 focus:ring-blue-500 transition-all"
+            autoFocus
+            value={inputValue}
+            onChange={handleInputChange}
+            onBlur={handleAddItem}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleAddItem();
+              }
+            }}
+          />
+        </div>
         )}
         {explorer && explorer.items && explorer.items.map((item) => (
           <Folder key={item.id} explorer={item} />
         ))}
       </div>
-    </div>
+    </ContextMenu>
   );
 };
 
