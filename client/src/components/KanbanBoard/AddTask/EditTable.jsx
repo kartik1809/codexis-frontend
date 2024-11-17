@@ -3,7 +3,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTaskToBoard} from '../../../redux/KanbanBoard/kanbanContentSlice';
-import { v4 as uuidv4 } from 'uuid'; // Import UUID
+import { v4 as uuidv4 } from 'uuid'; 
 
 const EditTable = (props) => {
     const [isClicked, setIsClicked] = useState(false);
