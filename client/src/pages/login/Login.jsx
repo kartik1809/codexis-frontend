@@ -124,7 +124,7 @@ const Login = () => {
 
   return (
     <>
-      <div className='flex items-center justify-center h-screen register-div'>
+      <div className='flex items-center justify-center h-screen register-div w-[100vw]'>
         <div className='flex flex-col gap-2 bg-black rounded-lg p-6'>
           <p className='self-center'>Login with</p>
           <div className='flex gap-5 self-center'>

@@ -21,7 +21,7 @@ const DashBoard = () => {
     }, 800)
   },[])
   return (
-    <div className='dash-board'>
+    <div className='dash-board w-[100vw]'>
       <FullScreen handle={handle}>
         <DashNav handle={handle} />
         <ToolBar />

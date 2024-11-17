@@ -5,7 +5,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import './register.css'
+// import './register.css'
 import { getAuth, GoogleAuthProvider, signInWithPopup, GithubAuthProvider } from 'firebase/auth';
 import { app } from '../../firebase';
 import { useDispatch } from 'react-redux';
@@ -131,8 +131,8 @@ const Register = () => {
   }
   return (
     <>
-      <div className='flex items-center justify-center h-screen register-div'>
-        <div className='flex flex-col gap-2 bg-black rounded-lg p-6'>
+      <div className='flex items-center justify-center h-screen register-div w-[100vw]'>
+        <div className='flex flex-col gap-2 bg-black rounded-lg p-6 '>
           <p className='self-center'>Register with</p>
           <div className='flex gap-5 self-center'>
             <button onClick={handleGoogleClick} className='bg-slate-600 w-40 rounded-lg text-white hover:border-0 hover:after:border-0 hover:before:border-0 OAuth-btn'><GoogleIcon /> &nbsp;Google</button>

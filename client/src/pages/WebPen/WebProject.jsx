@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setHtml, setCss, setJs } from '../../redux/WebPenContent/WebPenSlice';
 import { setLoading } from '../../redux/LoaderSlice';
 
+
 const WebProject = () => {
   const html = useSelector((state) => state.webPen.html);
   const css = useSelector((state) => state.webPen.css);
@@ -218,7 +219,7 @@ body.dark-mode textarea {
   };
 
   return (
-    <div className='web-project-container bg-gray-950' style={{ height: '100vh' }}>
+    <div className='web-project-container bg-gray-950 w-[100vw]' style={{ height: '100vh' }}>
       <WebHeader />
       <Split
         sizes={[50, 50]}
